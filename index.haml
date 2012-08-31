@@ -1,0 +1,384 @@
+!!! 5
+%html
+  %head
+    %title Joosy presentation
+    %meta(charset='utf-8')
+    %script(src='http://html5slides.googlecode.com/svn/trunk/slides.js')
+  :css
+    .template-joosy .biglogo {
+      background: url("images/joosy.png") no-repeat scroll 50% 50% white
+    }
+
+    .silver {
+      color: silver;
+    }
+
+    .gray {
+      color: gray;
+    }
+
+    li .desc {
+      color: gray;
+      margin: .4em 0;
+    }
+
+    ul pre {
+      margin: .8em 0;
+    }
+
+  %body(style="display: none")
+    %section.slides.layout-regular.template-joosy
+      %article.biglogo
+
+      %article
+        %h2 В общих чертах
+
+      %article
+        %h1
+          Joosy is YET ANOTHER
+          %br
+          %s.silver Bicycle
+          SPA Library
+        %p.gray
+          AngularJS, Director, Sammyjs, Backbone.js,
+          %b.black>< &nbsp;Joosy
+          , scaleApp, Spine.js,
+          JavaScriptMVC, SproutCore, Ember.js, knockout.js, PureMVC
+
+      %article
+        %p Достаточно молодой фреймворк, первый коммит датируется 23 декабря 11 года.
+        %p
+          Разрабатывается компанией RoundLake (
+          %a{href: 'http://roundlake.ru'}>< http://roundlake.ru
+          ) во главе со скандальным Борисом Безруковым (github:inossidabile)
+        %p
+          Относительно быстрое принятие pull requests, от 2 дней до недели.
+          Пилится активно и по сей день небольшой группой разработчиков.
+
+      %article
+        %p Это типичная модель взаимодействия Rails и браузера:
+        %p
+          %img{src: 'images/typical.png'}
+
+      %article
+        %p
+          Joosy берет на себя рендеринг HTML, навешивание событий и все что
+          нужно для дальнейшей работы из браузера, получаем:
+        %p
+          %img{src: 'images/joosy_way.png'}
+
+      %article
+        %h3 Философия
+        %ul.build.black
+          %li
+            .title Соглашения прежде конфигурации (Convention over Configuration)
+            .desc
+              Придерживается избранной системы соглашений => отпадает
+              необходимость их специфицировать => сильно упрощает разработку и
+              сопровождение продукта
+          %li
+            .title Не MVC, нет Model
+            .desc
+              Самое что отличает его от остальных представителей зоопарка. Joosy
+              призван реализовывать только представление на стороне клиента, ни о какой
+              бизнесс логике речи идти не может.
+          %li
+            .title Использование модных компонентов из мира Rails
+            .desc
+              Полностью написан на CoffeeScript, шаблоны на HAML + inline CoffeeScript,
+              Sugar.js
+
+      %article
+        %h3 Соглашения прежде конфигурации (Convention over Configuration)
+        %p
+          Позволяет знакомому с соглашением программисту быстро сориентироваться
+          в коде.
+        %p
+          Позволяет меньше думать о структуре файловой системы,
+          наименовании переменных и прочих мелочах, сосредоточиться на быстром
+          написании полезного кода
+        %p
+          Все архитектурные моменты уже согласованы, не нужно ничего сочинять
+
+      %article
+        %h1
+          Model?
+          %br
+          Верните модельку! =(
+
+      %article
+        %h3 Че взамен?
+        %p
+          А взамен получаем REST интерфейс для работы с ресурсами
+        %p
+          Это значит что мы не увидим метода save(), все изменения в данных на сервере
+          делаются либо через формы, либо через методы CRUD
+        %p
+          Объясняется это авторами как: REST не есть SQL, а сервер к js клиенту не Реляционная СУБД.
+          Поэтому низя использовать полноценно логику в Моделе => выпилена.
+
+      %article.smaller
+        %h3 Три кита
+        %ul
+          %li
+            CoffeeScript (
+            %a{href: 'http://coffeescript.org'}>< http://coffeescript.org
+            )
+            %pre
+              :preserve
+                Joosy.namespace 'Post', ->
+                  @IndexPage extends Joosy.Page
+                    @view 'index'
+
+          %li
+            HAML (
+            %a{href: 'http://haml.info'}>< http://haml.info
+            )
+            %pre
+              :preserve
+                .posts
+                  - @posts.each (post) ->
+                    .well
+                      .title= post('title')
+                      .body= post('body')
+
+          %li
+            Sugar.js (
+            %a{href: 'http://sugarjs.com'}>< http://sugarjs.com
+            )
+            %pre
+              :preserve
+                ['three','two','one'].groupBy('length'); // {"5":["three"],"3":["two","one"]}
+                '[you] escape &lt;me&gt;'.escapeHTML(); // "[you] escape &amp;lt;me&amp;gt;"
+                (5).times(function() {
+                  // Run 5 times
+                });
+                Date.create().is('tuesday'); // false|true
+
+      %article
+        %h2 Подробнее
+
+      %article.smaller
+        %h3 Фичи
+        %ul
+          %li Простая и знакомая структура приложения. Работаем с Pages, Layouts and Forms
+          %li Встроенный HAML шаблонизатор
+          %li Хелперы
+          %li Identity Map, он же инода Local Storage
+          %li Простой и понятный динамический биндинг данных в DOM
+          %li Анимация прелоадера
+          %li Бутстрап моделей для joosy на этапе отдачи страницы рельсами
+          %li Генераторы кода
+          %li REST интерфейс к серверу
+
+      %article.smaller
+        %h3 Страницы
+        %p
+          %img{src: 'images/scheme.png'}
+        %p
+          В Joosy центральным элементом является страница (Page). При очередном
+          изменении адреса подгружается новая.
+        %p
+          Каждая страница может иметь макет (Layout), который грузится один раз
+          для первой, и не меняется, если у след тот же макет.
+
+      %article
+        %h3 Flow
+        %p
+          %img{src: 'images/initialization.png'}
+
+      %article
+        %h2 In action
+
+      %article.smaller
+        %h3 Quick Start
+        %ul
+          %li
+            %pre
+              $ rails new jblog
+          %li
+            Gemfile
+            %pre
+              :preserve
+                gem 'joosy'
+
+                group :assets do
+                  ...
+                  gem 'bootstrap-rails'
+                  gem 'anjlab-bootstrap-rails'
+                  gem 'font-awesome-sass-rails'
+                  ...
+                end
+          %li
+            app/assets/stylesheets/application.css.scss
+            %pre
+              :preserve
+                @import 'bootstrap';
+                @import 'font-awesome';
+
+                body {
+                  padding-top: 60px;
+                }
+          %li
+            %pre
+              :preserve
+                $ rails g joosy:application blog
+                $ rails g joosy:preloader blog
+
+      %article.smaller
+        %p
+          %pre
+            $ rails s
+        %p И получаем
+        %p
+          %img{src: "images/startup_page.png"}
+
+      %article.smaller
+        %h3 Структура каталогов
+        %pre
+          :preserve
+            javascripts
+            ├── blog
+            │   ├── helpers
+            │   │   └── application.js.coffee
+            │   ├── layouts
+            │   │   └── application.js.coffee
+            │   ├── pages
+            │   │   ├── application.js.coffee
+            │   │   └── welcome
+            │   │       └── index.js.coffee
+            │   ├── resources
+            │   ├── templates
+            │   │   ├── layouts
+            │   │   │   └── application.jst.hamlc
+            │   │   ├── pages
+            │   │   │   └── welcome
+            │   │   │       └── index.jst.hamlc
+            │   │   └── widgets
+            │   ├── widgets
+            │   └── routes.js.coffee
+            ├── blog.js.coffee
+            ├── blog_preloader.js.coffee.erb
+            ├── blog_railties.js.coffee.erb
+            └── application.js
+
+      %article.smaller
+        %h3 Листинги файлов
+        %ul
+          %li
+            root/config/routes.rb
+            %pre
+              :preserve
+                Jblog::Application.routes.draw do
+                  match 'blog' => 'blog#index'
+                end
+          %li
+            blog/blog_railties.js.coffee.erb
+            %pre
+              :preserve
+                Joosy.defineResources <%= Joosy.resources %>
+          %li
+            blog/blog_preloader.js.coffee.erb
+            %pre
+              :preserve
+                <%= require_joosy_preloader_for 'blog', preloader: 'caching', force: false %>
+
+                bootstrap = ->
+                  $('#preloader').remove()
+                  Joosy.Application.initialize 'blog','#application',
+                    environment: window.joosy.environment
+                    debug: false
+
+                window.onload = ->
+                  Preloader.load window.joosy.libraries,
+                    complete: bootstrap
+                    start: -> document.getElementById('preloader').style.display = 'block'
+                    progress: (percent) -> document.getElementById('percents').innerHTML = percent + '%'
+
+      %article.smaller
+        %ul
+          %li
+            blog/routes.js.coffee
+            %pre
+              :preserve
+                Joosy.Router.map
+                  404             : (path) -> alert "Page '&#35;{path}' was not found :("
+                  '/'             : Welcome.IndexPage
+          %li
+            blog/templates/layouts/application.jst.hamlc
+            %pre
+              :preserve
+                &#35;page{:style => 'text-align: center'}
+                  .content{:id => @yield()}
+          %li
+            blog/templates/pages/welcome/index.jst.hamlc
+            %pre
+              :preserve
+                &#35;wrapper
+                  &#35;content
+                    %h1 Welcome aboard
+                    %h2{:style => 'margin-bottom: 30px'} You’re still riding Ruby on Rails.
+                    .joosy{:style => 'background: &#35;F71; border-radius: 10px; width: 250px; display: inline-block'}
+                      %div{:style => 'color: &#35;FFF; padding: 10px;'}
+                        But it's so joosy this time!
+          %li
+            blog/pages/application.js.coffee
+            %pre
+              :preserve
+                @ApplicationPage extends Joosy.Page
+
+      %article.smaller
+        %ul
+          %li
+            blog/layouts/application.js.coffee
+            %pre
+              :preserve
+                class @ApplicationLayout extends Joosy.Layout
+                  @view 'application'
+
+          %li
+            blog/pages/welcome/index.js.coffee
+            %pre
+              :preserve
+                Joosy.namespace 'Welcome', ->
+
+                  class @IndexPage extends ApplicationPage
+                    @layout ApplicationLayout
+                    @view   'index'
+
+                    @afterLoad ->
+                      @startHeartbeat()
+                      @content.css
+                        'padding-top': "&#35;{$(window).height() / 2 - 160}px"
+
+                    elements:
+                      content: '&#35;content'
+                      joosy:   '.joosy'
+
+                    events:
+                      'mouseover $joosy': -> clearInterval @heartbeat
+                      'mouseout $joosy': 'startHeartbeat'
+
+                    startHeartbeat: ->
+                      @heartbeat = @setInterval 1500, =>
+                        @joosy.animate({opacity: 0.8}, 300).animate({opacity: 1}, 300)
+      %article
+        %h1 Резюме
+
+      %article
+        %h3 Ссылки
+        %ul
+          %li
+            %a{href: 'http://joosy.ws'} http://joosy.ws
+            &#45; Joosy framework home page
+          %li
+            %a{href: 'http://coffeescript.org'} http://coffeescript.org
+            &#45; CoffeeScript
+          %li
+            %a{href: 'http://haml.info'} http://haml.info
+            &#45; HAML
+          %li
+            %a{href: 'http://sugarjs.com'} http://sugarjs.com
+            &#45; Sugar.js
+        %h1
+          Вопросы?

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Joosy presentation</title>
+    <meta charset='utf-8' />
+    <script src='http://html5slides.googlecode.com/svn/trunk/slides.js'></script>
+  </head>
+  <style type='text/css'>
+    /*<![CDATA[*/
+      .template-joosy .biglogo {
+        background: url("images/joosy.png") no-repeat scroll 50% 50% white
+      }
+      
+      .silver {
+        color: silver;
+      }
+      
+      .gray {
+        color: gray;
+      }
+      
+      li .desc {
+        color: gray;
+        margin: .4em 0;
+      }
+      
+      ul pre {
+        margin: .8em 0;
+      }
+    /*]]>*/
+  </style>
+  <body style='display: none'>
+    <section class='slides layout-regular template-joosy'>
+      <article class='biglogo'></article>
+      <article>
+        <h2>В общих чертах</h2>
+      </article>
+      <article>
+        <h1>
+          Joosy is YET ANOTHER
+          <br />
+          <s class='silver'>Bicycle</s>
+          SPA Library
+        </h1>
+        <p class='gray'>
+          AngularJS, Director, Sammyjs, Backbone.js,<b class='black'>&nbsp;Joosy</b>, scaleApp, Spine.js,
+          JavaScriptMVC, SproutCore, Ember.js, knockout.js, PureMVC
+        </p>
+      </article>
+      <article>
+        <p>Достаточно молодой фреймворк, первый коммит датируется 23 декабря 11 года.</p>
+        <p>
+          Разрабатывается компанией RoundLake (<a href='http://roundlake.ru'>http://roundlake.ru</a>) во главе со скандальным Борисом Безруковым (github:inossidabile)
+        </p>
+        <p>
+          Относительно быстрое принятие pull requests, от 2 дней до недели.
+          Пилится активно и по сей день небольшой группой разработчиков.
+        </p>
+      </article>
+      <article>
+        <p>Это типичная модель взаимодействия Rails и браузера:</p>
+        <p>
+          <img src='images/typical.png' />
+        </p>
+      </article>
+      <article>
+        <p>
+          Joosy берет на себя рендеринг HTML, навешивание событий и все что
+          нужно для дальнейшей работы из браузера, получаем:
+        </p>
+        <p>
+          <img src='images/joosy_way.png' />
+        </p>
+      </article>
+      <article>
+        <h3>Философия</h3>
+        <ul class='build black'>
+          <li>
+            <div class='title'>Соглашения прежде конфигурации (Convention over Configuration)</div>
+            <div class='desc'>
+              Придерживается избранной системы соглашений => отпадает
+              необходимость их специфицировать => сильно упрощает разработку и
+              сопровождение продукта
+            </div>
+          </li>
+          <li>
+            <div class='title'>Не MVC, нет Model</div>
+            <div class='desc'>
+              Самое что отличает его от остальных представителей зоопарка. Joosy
+              призван реализовывать только представление на стороне клиента, ни о какой
+              бизнесс логике речи идти не может.
+            </div>
+          </li>
+          <li>
+            <div class='title'>Использование модных компонентов из мира Rails</div>
+            <div class='desc'>
+              Полностью написан на CoffeeScript, шаблоны на HAML + inline CoffeeScript,
+              Sugar.js
+            </div>
+          </li>
+        </ul>
+      </article>
+      <article>
+        <h3>Соглашения прежде конфигурации (Convention over Configuration)</h3>
+        <p>
+          Позволяет знакомому с соглашением программисту быстро сориентироваться
+          в коде.
+        </p>
+        <p>
+          Позволяет меньше думать о структуре файловой системы,
+          наименовании переменных и прочих мелочах, сосредоточиться на быстром
+          написании полезного кода
+        </p>
+        <p>
+          Все архитектурные моменты уже согласованы, не нужно ничего сочинять
+        </p>
+      </article>
+      <article>
+        <h1>
+          Model?
+          <br />
+          Верните модельку! =(
+        </h1>
+      </article>
+      <article>
+        <h3>Че взамен?</h3>
+        <p>
+          А взамен получаем REST интерфейс для работы с ресурсами
+        </p>
+        <p>
+          Это значит что мы не увидим метода save(), все изменения в данных на сервере
+          делаются либо через формы, либо через методы CRUD
+        </p>
+        <p>
+          Объясняется это авторами как: REST не есть SQL, а сервер к js клиенту не Реляционная СУБД.
+          Поэтому низя использовать полноценно логику в Моделе => выпилена.
+        </p>
+      </article>
+      <article class='smaller'>
+        <h3>Три кита</h3>
+        <ul>
+          <li>
+            CoffeeScript (<a href='http://coffeescript.org'>http://coffeescript.org</a>)
+            <pre>Joosy.namespace 'Post', ->&#x000A;  @IndexPage extends Joosy.Page&#x000A;    @view 'index'&#x000A;</pre>
+          </li>
+          <li>
+            HAML (<a href='http://haml.info'>http://haml.info</a>)
+            <pre>.posts&#x000A;  - @posts.each (post) ->&#x000A;    .well&#x000A;      .title= post('title')&#x000A;      .body= post('body')&#x000A;</pre>
+          </li>
+          <li>
+            Sugar.js (<a href='http://sugarjs.com'>http://sugarjs.com</a>)
+            <pre>['three','two','one'].groupBy('length'); // {"5":["three"],"3":["two","one"]}&#x000A;'[you] escape &lt;me&gt;'.escapeHTML(); // "[you] escape &amp;lt;me&amp;gt;"&#x000A;(5).times(function() {&#x000A;  // Run 5 times&#x000A;});&#x000A;Date.create().is('tuesday'); // false|true&#x000A;</pre>
+          </li>
+        </ul>
+      </article>
+      <article>
+        <h2>Подробнее</h2>
+      </article>
+      <article class='smaller'>
+        <h3>Фичи</h3>
+        <ul>
+          <li>Простая и знакомая структура приложения. Работаем с Pages, Layouts and Forms</li>
+          <li>Встроенный HAML шаблонизатор</li>
+          <li>Хелперы</li>
+          <li>Identity Map, он же инода Local Storage</li>
+          <li>Простой и понятный динамический биндинг данных в DOM</li>
+          <li>Анимация прелоадера</li>
+          <li>Бутстрап моделей для joosy на этапе отдачи страницы рельсами</li>
+          <li>Генераторы кода</li>
+          <li>REST интерфейс к серверу</li>
+        </ul>
+      </article>
+      <article class='smaller'>
+        <h3>Страницы</h3>
+        <p>
+          <img src='images/scheme.png' />
+        </p>
+        <p>
+          В Joosy центральным элементом является страница (Page). При очередном
+          изменении адреса подгружается новая.
+        </p>
+        <p>
+          Каждая страница может иметь макет (Layout), который грузится один раз
+          для первой, и не меняется, если у след тот же макет.
+        </p>
+      </article>
+      <article>
+        <h3>Flow</h3>
+        <p>
+          <img src='images/initialization.png' />
+        </p>
+      </article>
+      <article>
+        <h2>In action</h2>
+      </article>
+      <article class='smaller'>
+        <h3>Quick Start</h3>
+        <ul>
+          <li>
+            <pre>$ rails new jblog</pre>
+          </li>
+          <li>
+            Gemfile
+            <pre>gem 'joosy'&#x000A;&#x000A;group :assets do&#x000A;  ...&#x000A;  gem 'bootstrap-rails'&#x000A;  gem 'anjlab-bootstrap-rails'&#x000A;  gem 'font-awesome-sass-rails'&#x000A;  ...&#x000A;end</pre>
+          </li>
+          <li>
+            app/assets/stylesheets/application.css.scss
+            <pre>@import 'bootstrap';&#x000A;@import 'font-awesome';&#x000A;&#x000A;body {&#x000A;  padding-top: 60px;&#x000A;}</pre>
+          </li>
+          <li>
+            <pre>$ rails g joosy:application blog&#x000A;$ rails g joosy:preloader blog&#x000A;</pre>
+          </li>
+        </ul>
+      </article>
+      <article class='smaller'>
+        <p>
+          <pre>$ rails s</pre>
+        </p>
+        <p>И получаем</p>
+        <p>
+          <img src='images/startup_page.png' />
+        </p>
+      </article>
+      <article class='smaller'>
+        <h3>Структура каталогов</h3>
+        <pre>javascripts&#x000A;├── blog&#x000A;│   ├── helpers&#x000A;│   │   └── application.js.coffee&#x000A;│   ├── layouts&#x000A;│   │   └── application.js.coffee&#x000A;│   ├── pages&#x000A;│   │   ├── application.js.coffee&#x000A;│   │   └── welcome&#x000A;│   │       └── index.js.coffee&#x000A;│   ├── resources&#x000A;│   ├── templates&#x000A;│   │   ├── layouts&#x000A;│   │   │   └── application.jst.hamlc&#x000A;│   │   ├── pages&#x000A;│   │   │   └── welcome&#x000A;│   │   │       └── index.jst.hamlc&#x000A;│   │   └── widgets&#x000A;│   ├── widgets&#x000A;│   └── routes.js.coffee&#x000A;├── blog.js.coffee&#x000A;├── blog_preloader.js.coffee.erb&#x000A;├── blog_railties.js.coffee.erb&#x000A;└── application.js&#x000A;</pre>
+      </article>
+      <article class='smaller'>
+        <h3>Листинги файлов</h3>
+        <ul>
+          <li>
+            root/config/routes.rb
+            <pre>Jblog::Application.routes.draw do&#x000A;  match 'blog' => 'blog#index'&#x000A;end</pre>
+          </li>
+          <li>
+            blog/blog_railties.js.coffee.erb
+            <pre>Joosy.defineResources <%= Joosy.resources %></pre>
+          </li>
+          <li>
+            blog/blog_preloader.js.coffee.erb
+            <pre><%= require_joosy_preloader_for 'blog', preloader: 'caching', force: false %>&#x000A;&#x000A;bootstrap = ->&#x000A;  $('#preloader').remove()&#x000A;  Joosy.Application.initialize 'blog','#application',&#x000A;    environment: window.joosy.environment&#x000A;    debug: false&#x000A;&#x000A;window.onload = ->&#x000A;  Preloader.load window.joosy.libraries,&#x000A;    complete: bootstrap&#x000A;    start: -> document.getElementById('preloader').style.display = 'block'&#x000A;    progress: (percent) -> document.getElementById('percents').innerHTML = percent + '%'&#x000A;</pre>
+          </li>
+        </ul>
+      </article>
+      <article class='smaller'>
+        <ul>
+          <li>
+            blog/routes.js.coffee
+            <pre>Joosy.Router.map&#x000A;  404             : (path) -> alert "Page '&#35;{path}' was not found :("&#x000A;  '/'             : Welcome.IndexPage</pre>
+          </li>
+          <li>
+            blog/templates/layouts/application.jst.hamlc
+            <pre>&#35;page{:style => 'text-align: center'}&#x000A;  .content{:id => @yield()}</pre>
+          </li>
+          <li>
+            blog/templates/pages/welcome/index.jst.hamlc
+            <pre>&#35;wrapper&#x000A;  &#35;content&#x000A;    %h1 Welcome aboard&#x000A;    %h2{:style => 'margin-bottom: 30px'} You’re still riding Ruby on Rails.&#x000A;    .joosy{:style => 'background: &#35;F71; border-radius: 10px; width: 250px; display: inline-block'}&#x000A;      %div{:style => 'color: &#35;FFF; padding: 10px;'}&#x000A;        But it's so joosy this time!</pre>
+          </li>
+          <li>
+            blog/pages/application.js.coffee
+            <pre>@ApplicationPage extends Joosy.Page&#x000A;</pre>
+          </li>
+        </ul>
+      </article>
+      <article class='smaller'>
+        <ul>
+          <li>
+            blog/layouts/application.js.coffee
+            <pre>class @ApplicationLayout extends Joosy.Layout&#x000A;  @view 'application'&#x000A;</pre>
+          </li>
+          <li>
+            blog/pages/welcome/index.js.coffee
+            <pre>Joosy.namespace 'Welcome', ->&#x000A;&#x000A;  class @IndexPage extends ApplicationPage&#x000A;    @layout ApplicationLayout&#x000A;    @view   'index'&#x000A;&#x000A;    @afterLoad ->&#x000A;      @startHeartbeat()&#x000A;      @content.css&#x000A;        'padding-top': "&#35;{$(window).height() / 2 - 160}px"&#x000A;&#x000A;    elements:&#x000A;      content: '&#35;content'&#x000A;      joosy:   '.joosy'&#x000A;&#x000A;    events:&#x000A;      'mouseover $joosy': -> clearInterval @heartbeat&#x000A;      'mouseout $joosy': 'startHeartbeat'&#x000A;&#x000A;    startHeartbeat: ->&#x000A;      @heartbeat = @setInterval 1500, =>&#x000A;        @joosy.animate({opacity: 0.8}, 300).animate({opacity: 1}, 300)</pre>
+          </li>
+        </ul>
+      </article>
+      <article>
+        <h1>Резюме</h1>
+      </article>
+      <article>
+        <h3>Ссылки</h3>
+        <ul>
+          <li>
+            <a href='http://joosy.ws'>http://joosy.ws</a>
+            &#45; Joosy framework home page
+          </li>
+          <li>
+            <a href='http://coffeescript.org'>http://coffeescript.org</a>
+            &#45; CoffeeScript
+          </li>
+          <li>
+            <a href='http://haml.info'>http://haml.info</a>
+            &#45; HAML
+          </li>
+          <li>
+            <a href='http://sugarjs.com'>http://sugarjs.com</a>
+            &#45; Sugar.js
+          </li>
+        </ul>
+        <h1>
+          Вопросы?
+        </h1>
+      </article>
+    </section>
+  </body>
+</html>
